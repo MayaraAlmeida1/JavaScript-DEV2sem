@@ -158,7 +158,7 @@
 // if (nota > 100 || < 0){
 //     alert("Digite novamente uma nota válida")
 // } else {
-//     switch (nota) //fazer a validação de ordem crescente para poder passar pelos cases corretamente
+//     switch (true) //fazer a validação de ordem crescente para poder passar pelos cases corretamente
 //     {
 //         case (nota >= 90) :
 //             alert("Sua nota é A")
