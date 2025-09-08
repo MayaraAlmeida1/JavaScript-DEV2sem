@@ -208,8 +208,3 @@ if ((ano % 4 == 0 && ano % 100 != 0) || ano % 400 == 0){ //o ano é bissexto se 
 } else {
     alert(`O ano ${ano} não é bissexto`)
 }
-
-
-
-
-
