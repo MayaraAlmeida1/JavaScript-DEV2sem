@@ -15,21 +15,17 @@
 //     }
 
 // //! ATIVIDADE 3
-let n = parseInt(prompt("Digite um número: "))
-let operacao = 0
-let i = 1
+// let n = parseInt(prompt("Digite um número inteiro positivo: "))
+// let soma = 0
+// let i = 1
 
-while (i <= n) {
-    operacao += i
-    console.log(i)
-    i++
-} while (i >= n){
-    operacao += i
-    console.log(i)
-    i++
-}
+// while (i <= n) {
+//     soma += i
+//     console.log(i)
+//     i++
+// } 
 
-console.log("A soma total dos números é: " + operacao)
+// console.log("A soma total dos números é: " + soma)
 
 
 // //*NÍVEL INTERMEDIÁRIO
