@@ -16,21 +16,20 @@
 
 // //! ATIVIDADE 3
 let n = parseInt(prompt("Digite um número: "))
-let soma = 0
+let operacao = 0
 let i = 1
 
 while (i <= n) {
-    soma += i
+    operacao += i
+    console.log(i)
+    i++
+} while (i >= n){
+    operacao += i
     console.log(i)
     i++
 }
-// } while (i >= n){
-//     operacao += i
-//     console.log(i)
-//     i++
-// }
 
-console.log("A soma total dos números é: " + soma)
+console.log("A soma total dos números é: " + operacao)
 
 
 // //*NÍVEL INTERMEDIÁRIO
