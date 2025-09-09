@@ -78,7 +78,7 @@
 // )
 // console.log(mensagem)
 
-//* Deixae os nomes em maiúsculo e adicionar um sufixo
+//* Deixa os nomes em maiúsculo e adicionar um sufixo
 // const nomes = ["ana", "bruno", "carla"]
 
 // const nomesMaiusculo = nomes.map(nome => "Colaborador: " + nome.toUpperCase()) // ".toUpperCase" função para deixar tudo em maiúsculo
@@ -106,3 +106,44 @@
 //     }
 // }, numeros [0]) // inicializa o acumulador(max) na posição 0 do array "numeros". Nesse caso o "max" equivale a 10
 // console.log(maiorNumero)
+
+//* Contar a frequência de palavras
+// const palavras = ["maçã", "banana", "maçã", "laranja", "banana", "maçã"]
+
+// const contagem = palavras.reduce((acumulador, palavra) => {
+//     acumulador[palavra] = (acumulador[palavra] || 0) + 1 // o acumulador palavra verifica se já existe alguma palavra dentro do acumulador {}
+//                                                          // como não existe ele deixa como 0 + 1, faz isso com todas as palavras e vai contando cada uma 
+//     return acumulador
+// }, {}) // O acumulador se inicia com um objeto vazio {}
+//        // conforme ele vai percorrendo as palavras dentro do array, guarda elas como um valor, ele verifica se a palavra já existe dentro do acumulador, se ela for repetida vai contar junto
+// console.log(contagem)
+
+//* Calcular média de notas
+// const notas = [7, 8, 9, 6, 10]
+
+// const media = notas.reduce((total, nota) => total + nota, 0) / notas.length // ele soma todos as notas junto com o acumulador no final divide pelo tamanho do array "notas"
+// console.log(media) 
+
+//* Uso combinado
+const usuarios = [
+    {id: 1, nome: "Alice", idade: 25},
+    {id: 2, nome: "Bob", idade: 30},
+    {id: 3, nome: "Carol", idade: 20}
+]
+
+// Filtrar usuários com idade maior que 21
+const maioresDeIdade = usuarios.filter(usuario => usuario.idade > 21)
+
+// Encontrar o primeirp usuário com a idade maior que 21
+const usuarioIdade = usuarios.find(usuario => usuario.idade > 21)
+
+// Criar um array apenascom nomes dos usuários
+const nomesUsuarios = usuarios.map(usuario => usuario.nome)
+
+// Somas todas as idades dos usuários usando o reduce
+const somaIdades = usuarios.reduce((total, usuario) => total + usuario.idade, 0) // O acumulador(total) se inicia em 0 e vai somando todas as idades
+
+console.log("Maiores de idade: ", maioresDeIdade) // após a vírgula, mostra o que ele recebe
+console.log("Primeiro maior de idade: ", usuarioIdade)
+console.log("Nomes de usuários: ", nomesUsuarios)
+console.log("Soma de idades: ", somaIdades)

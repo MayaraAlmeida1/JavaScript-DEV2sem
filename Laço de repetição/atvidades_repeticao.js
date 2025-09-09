@@ -71,4 +71,4 @@
 //* NÍVEL AVANÇADO
 
 // //! ATIVIDADE 1
-// let n = parseInt(prompt("Digite um número inteiro positivo: "))
+let numeros = parseInt(prompt("Digite um número inteiro positivo: "))
