@@ -12,16 +12,16 @@
 
 //! WHILE
 //* Fazer uma soma
-// let soma = 0
-// let i = 1
+let soma = 0
+let i = 1
 
-// while(i <= 10){
-//     soma += i // -> soma = soma + i
-//     console.log("O resultado atual é: " + soma)
-//     i++
-// }
+while(i <= 10){
+    soma += i // -> soma = soma + i
+    console.log("O resultado atual é: " + soma)
+    i++
+}
 
-// console.log("A soma total dos 10 números é: " + soma)
+console.log("A soma total dos 10 números é: " + soma)
 
 // //! DO / WHILE
 // //*Garante a execução pelo menos uma vez
