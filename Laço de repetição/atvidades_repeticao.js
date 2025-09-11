@@ -99,7 +99,7 @@
 // alert(`Após a inversão o número se resulta em ${numeroInvertido}`)
 
 //! ATIVIDADE 4 - Números perfeitos de 1 a 1000
-//console.log("Entre 1 e 1000 os números perfeitos são: ")
+console.log("Entre 1 e 1000 os números perfeitos são: ")
 
 for(let numero_testado = 1; numero_testado <= 1000; numero_testado++){  // Testa um por um qual é perfeito
     let somaDivisores = 0
@@ -113,8 +113,7 @@ for(let numero_testado = 1; numero_testado <= 1000; numero_testado++){  // Testa
     const numerosPerfeitos = [numero_testado]
 
     if(somaDivisores === numero_testado){ // Veriicação do número perfeito
-        let mensagem = numerosPerfeitos.map(numero => numero )
-        console.log(`Entre 1 e 1000 os números perfeitos são: ${mensagem} `)
-
+        let mensagem = numerosPerfeitos.map(numero => numero)   
+        console.log(mensagem)
     }
 }
