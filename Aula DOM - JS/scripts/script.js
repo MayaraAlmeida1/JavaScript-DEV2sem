@@ -1,4 +1,6 @@
-//! AULA DOM - Document Object Model, uma API (Interface de Programação de Aplicações) que representa uma página HTML ou XML como uma árvore de objetos
+//! AULA DOM - Document Object Model, uma API (Interface de Programação de Aplicações) que representa uma página HTML e todos os seus elementos dela como uma árvore de objetos
+//! Cada tag (como <div>, <p>, <img>) é transformada em um na árvore, permitindo que o JavaScript acesse e altere o conteúdo, a estrutura e o estilo da página dinamicamente.
+//! Em resumo: o DOM é a forma como o navegador “enxerga” e manipula o HTML.
 
 
 //* com o "document" conseguimos pegar os códigos do html para poder manipular no JS
@@ -53,8 +55,8 @@ elForm.addEventListener('submit', function (e) {  // Nesse caso está esperando 
 //* Renderizar a lista
 function render(){
     // Pegar o termo digitado no filtro de busca e deixar em minúsculo
-    const termo = elFiltroBusca.value.toLowerCase() // Para buscar primeiro passa o que foi digitado para minúsculo
-    console.log("termo digitado em minúsculo: " + termo)
+    const termo = elFiltroBusca.value.toLowerCase() // Para buscar, primeiro passa o que foi digitado para minúsculo
+   // console.log("termo digitado em minúsculo: " + termo)
 
     // Pega o valor selecionado no filtro de status
     const filtro = elFiltroStatus.value
@@ -63,13 +65,14 @@ function render(){
     //* Aplica filtros de status e busca 
     const filtradas = tarefas.filter(function(t){  
         
-        const okStatus = filtro === "todas" ? true : t.status // se o filtro for "todas", aceita qualquer status
+        const okStatus = filtro === "todas" ? true : t.status === filtro // se o filtro for "todas", aceita qualquer status
                                                              //senão - compara com t.status
         
-        //* Se houver termo, ele verifica se o título contém esse termo
-        //* Se o usuário digitar algo, só aceita a tarefa se for igual ao que o usuário digitou
-        //* Se o usário não digitar nada, retorna a lista completa com todas as tarefas
-        const okBusca = termo ? t.titulo.toLocaleLowerCase().includes(termo) : true // .includes - verfica se inclui o termo
+        
+        const okBusca = termo ? t.titulo.toLocaleLowerCase().includes(termo) : true // Se houver termo, ele verifica se o título contém esse termo
+                                                                                    // Se o usuário digitar algo, só aceita a tarefa se for igual ao que o usuário digitou
+                                                                                    // Se o usário não digitar nada, retorna a lista completa com todas as tarefas
+                                                                                   // .includes - verfica se inclui o termo
 
         return okStatus && okBusca
     })
@@ -84,7 +87,7 @@ function render(){
         const li = document.createElement('li')// Ao passar por cada tarefa, cria um elmento chamado "li"
 
         //*Cria uma class para o li e colocando qual status
-        li.className = "tarefa" + t.status // Class = "tarefa pendente" ou "tarefa concluida", depende do status
+        li.className = "tarefa " + t.status // Class = "tarefa pendente" ou "tarefa concluida", depende do status
 
         //* Adiciona id para o li
         li.dataset.id = t.id // O id do li recebe o id da tarefa
@@ -102,7 +105,71 @@ function render(){
         check.type = "checkbox" // Tipo da caixa de selção, podendo marcar se fez ou não
         check.checked = t.status === "concluida" // Se o status da tarefa estiver marcado como concluida, ele vai marcar o check
 
-    })
-}
+        //* Ao mudar check, redesenha na tela
+                            // 'parâmetro', função()
+        check.addEventListener('change', function(){ // .addEventListener - escutador de evento // 'change' - usada caso alguma mudança aconteça
+            t.status = check.checked ? "concluida" : "pendente" // Verifica se o check está clicado, caso sim, marca como concluída, senão, marca a tarefa como pendente
+            render() // Mostrar novamnete na tela renderizada
+        })
 
+        // * Select de status para conseguirmos maracar: pendente, concluída ou em andamento
+        const select = document.createElement('select')
+        const listaSelect = ["pendente", "andamento", "concluida"]
+
+        listaSelect.forEach(function(status) { // Cria para cada status uma option e colocar dentro do value (pendente, andamento ou concluida)
+            const option = document.createElement('option')
+            option.value = status
+
+            option.textContent = status.charAt(0).toUpperCase() + status.slice(1) // .charAt - pega a posição dentro da palavra, nesse caso a posição 0 (primeira letra) 
+                                                                                  // .toUpperCase - deixa a letra pegada pelo chatAt em maiúsculo
+                                                                                  // .slice - pega o resto da palavra a partir da posição selecionada
+                                                                                  // Nesse caso vai deixar a primeira letra em maiúscula e juntar com o resto dela
+            if(t.status === status) option.selected = true
+            select.appendChild(option) // .appendChild - coloca dentro da div, nesse caso o option
+        })
+
+        //* Ao mudar o select(status da tarefa), atualiza e redesenha na tela a cor da tarefa
+        select.addEventListener('change', function(){
+            t.status = select.value
+            render() // Atualiza a tela
+        })
+
+        //* Botão para remover - tira e redesenha a tarefa
+        const botao = document.createElement('button')
+        botao.textContent = "X"
+        botao.className = "remover"
+
+        //* Recebe o evento de click e filtra uma nova lista
+        botao.addEventListener('click', function() { // Esperando um click nesse botão
+            tarefas = tarefas.filter(apagar => apagar.id !== t.id) // O apagar pega o id do que foi clicado e verifica se é diferente do id da tarefa, se for diferente ele joga fora
+            render() 
+        }) 
+
+        //* Adicionando os filhos da div ações
+        acoes.appendChild(check)
+        acoes.appendChild(select)
+        acoes.appendChild(botao)
+
+        //* Adicionando os filhos do li
+        li.appendChild(h3)
+        li.appendChild(acoes)
+
+        //*Adcionando os filhos do ul (id: #lista-tarefas - variavel: elLista)
+        elLista.appendChild(li)
+    })
+
+    elVazio.style.display = filtradas.length ? "none" : "block"   // .style - acessa as propriedades do CSS
+                                                                 // . display - vai ser a ação do if 
+                                                                // texto aparece na tela somente se o array de filtradas existir algo, senão, recebe display none (some da tela)
+} 
+
+//* FILTRAR
+//* Quando o usuário muda a opção de filtro por status
+elFiltroStatus.addEventListener('change', render) // Está esperando algo acontecer para chamar a função render (se estivesse com parênteses no final do render, a função aconteceria imediatamente)
+
+//* Quando o usuário digitar algo no campo de busca
+elFiltroBusca.addEventListener('input', render)
+
+//* Primeira renderização / atualização de informações
+render()
 
